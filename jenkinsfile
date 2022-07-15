@@ -1,0 +1,20 @@
+pipeline{
+    agent any
+    stages{
+        stage('GIT pull'){
+            steps{
+                checkout scm
+            }
+        }
+        stage('Docker build'){
+            steps{
+                sh 'docker build -t ritvik:v1 .'
+            }
+        }
+        stage('Docker Run'){
+            steps{
+                sh 'docker run -d -p 80:5000 ritvik:v1'
+            }
+        }
+    }
+}
